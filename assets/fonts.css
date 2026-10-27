@@ -1,0 +1,4 @@
+/* System fallbacks keep the page usable offline and avoid third-party font requests. */
+@font-face{font-family:'Site Sans';src:local('Arial'),local('Liberation Sans');font-style:normal;font-weight:100 900;font-display:swap}
+@font-face{font-family:'Site Serif';src:local('Georgia'),local('Liberation Serif');font-style:normal;font-weight:400;font-display:swap}
+@font-face{font-family:'Site Serif';src:local('Georgia Italic'),local('Liberation Serif Italic');font-style:italic;font-weight:400;font-display:swap}

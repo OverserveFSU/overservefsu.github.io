@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#173652">
+  <meta name="author" content="Ruiheng Yu, Oteo Mamo, Siyu Gan, Weikuan Yu, Mulong Luo">
+  <meta name="description" content="OverServe: Resource Amplification Attacks on SaaS Agents via Tool–Prompt Co-Design. Research manuscript, framework, interactive examples, and reported experiments.">
+  <meta property="og:title" content="OverServe: Resource Amplification Attacks on SaaS Agents">
+  <meta property="og:description" content="Resource Amplification Attacks on SaaS Agents via Tool–Prompt Co-Design. Explore the paper, framework, and experimental results.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://overservefsu.github.io/">
+  <link rel="canonical" href="https://overservefsu.github.io/">
+  <meta property="og:image" content="https://overservefsu.github.io/assets/social-card.png">
+  <title>OverServe: Resource Amplification Attacks on SaaS Agents via Tool–Prompt Co-Design</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <main id="main">
+    <section class="paper-hero" aria-labelledby="hero-title">
+      <div class="section-wrap">
+        <svg class="paper-mark" viewBox="0 0 48 48" width="42" height="42" aria-hidden="true"><path d="M19 11h-8v26h8" fill="none" stroke="#356f96" stroke-width="3" stroke-linecap="square"/><path d="M29 11h8v26h-8" fill="none" stroke="#b36d2d" stroke-width="3" stroke-linecap="square"/><path d="M18 24h12" stroke="#173652" stroke-width="2"/><circle cx="18" cy="24" r="3" fill="#356f96"/><circle cx="30" cy="24" r="3" fill="#b36d2d"/></svg>
+        <h1 class="paper-name" id="hero-title"><span class="wordmark-over">Over</span><span class="wordmark-serve">Serve</span></h1>
+        <p class="paper-subtitle">Resource Amplification Attacks on SaaS Agents<br>via Tool–Prompt Co-Design</p>
+        <p class="authors"><span><a href="mailto:ry26@fsu.edu">Ruiheng Yu</a><sup>1</sup></span><span><a href="mailto:om21d@fsu.edu">Oteo Mamo</a><sup>1</sup></span><span><a href="mailto:sgan5@jh.edu">Siyu Gan</a><sup>2</sup></span><span><a href="mailto:wyu3@fsu.edu">Weikuan Yu</a><sup>1</sup></span><span><a href="mailto:mluo@fsu.edu">Mulong Luo</a><sup>1</sup></span></p>
+        <p class="affiliations"><span><sup>1</sup> Florida State University</span><span><sup>2</sup> Johns Hopkins University</span></p>
+        <details class="author-contact"><summary>Contact authors</summary><p><a href="mailto:ry26@fsu.edu">ry26@fsu.edu</a> · <a href="mailto:om21d@fsu.edu">om21d@fsu.edu</a> · <a href="mailto:sgan5@jh.edu">sgan5@jh.edu</a> · <a href="mailto:wyu3@fsu.edu">wyu3@fsu.edu</a> · <a href="mailto:mluo@fsu.edu">mluo@fsu.edu</a></p></details>
+        <p class="manuscript-status">Research manuscript · 2026</p>
+        <div class="paper-links">
+          <a class="paper-button primary" href="assets/overserve-paper.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h8l4 4v14H6zM14 3v5h4M9 12h6M9 16h6"/></svg>Paper</a>
+          <a class="paper-button" href="https://github.com/OverserveFSU/overserve" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.9a3.4 3.4 0 0 0-.9-2.6c3-.3 6.2-1.5 6.2-6.6A5.1 5.1 0 0 0 20 5.8 4.8 4.8 0 0 0 19.9 2S18.7 1.6 16 3.5a13.4 13.4 0 0 0-7 0C6.3 1.6 5.1 2 5.1 2A4.8 4.8 0 0 0 5 5.8 5.1 5.1 0 0 0 3.7 9.3c0 5.1 3.2 6.3 6.2 6.6A3.4 3.4 0 0 0 9 18.5V22"/></svg>Code</a>
+          <a class="paper-button" href="#results"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h16M7 17v-5M12 17V6M17 17V9"/></svg>Results</a>
+          <a class="paper-button" href="#example"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 7-5 5 5 5m8-10 5 5-5 5m-3-13-2 16"/></svg>Tool–Prompt Example</a>
+          <a class="paper-button" href="#paper"><span aria-hidden="true">{ }</span>BibTeX</a>
+        </div>
+        <nav class="contents-nav" aria-label="Paper sections"><a href="#abstract">Abstract</a><a href="#threat-model">Threat Model</a><a href="#framework">Method</a><a href="#example">Example</a><a href="#results">Experiments</a></nav>
+      </div>
+    </section>
+
+    <section class="stats-section" aria-label="Selected study highlights"><div class="stat-band section-wrap">
+      <div><span class="stat-number">4</span><span class="stat-label">Victim Models</span><span class="stat-note">Qwen · Nemotron · DeepSeek · Sonnet</span></div>
+      <div><span class="stat-number">9<span class="stat-plus"> + CLI</span></span><span class="stat-label">Core Benchmarks</span><span class="stat-note">Selected tasks, plus a terminal extension</span></div>
+      <div><span class="stat-number">93.88<span class="stat-times">×</span></span><span class="stat-label">API-Request Amplification</span><span class="stat-note">Selected Sonnet / AppWorld case</span></div>
+      <div><span class="stat-number">24<span class="stat-denominator">/24</span></span><span class="stat-label">Original Task Checks Passed</span><span class="stat-note">Matched OverServe comparison replays</span></div>
+    </div></section>
+
+    <section class="academic-section" id="abstract" aria-labelledby="abstract-title"><div class="section-wrap">
+      <h2 class="section-title" id="abstract-title">Abstract</h2>
+      <p class="abstract-text">LLM agents automate business workflows by calling tools and deciding when the task is complete. In SaaS deployments that bundle internal execution into an outer request, additional model and tool calls consume provider resources. <strong>OverServe</strong> is a multi-agent framework for constructing resource-amplification attacks through <strong>tool–prompt co-design</strong>. It pairs an MCP status tool with a completion-confirmation prompt. Each tool call returns accurate status and terminates normally, while an unfinished service condition can sustain repeated checking after the original business task is done.</p>
+      <p class="abstract-text">The framework constructs service-specific pairs, reviews their components, and evaluates victim executions. The manuscript reports selected tasks across four victim models and nine core benchmarks, plus a command-line extension. This page presents the framework, reported call-overhead results, controlled interaction experiments, and a separate native-service candidate that remains to be evaluated.</p>
+    </div></section>
+
+    <section class="academic-section" id="threat-model" aria-labelledby="threat-title"><div class="section-wrap">
+      <h2 class="section-title" id="threat-title">Threat Model</h2>
+      <p class="section-intro">The attacker submits a third-party MCP tool and a completion prompt. The provider retains control of the victim agent, existing tools, service backend, permissions, and task verification. The manuscript studies a truthful status tool under controlled synchronization conditions: when updates continue, the service condition can remain pending even after the original task is completed.</p>
+      <figure class="author-figure hero-original">
+        <a class="author-figure-link" href="assets/overview-original.pdf" target="_blank" rel="noopener" aria-label="Open the author's original OverServe overview figure as a PDF">
+          <img src="assets/paper-overview.webp" width="1900" height="838" fetchpriority="high" alt="Author-provided OverServe overview: tool–prompt co-design, provider-side review, and victim execution under the paper's synchronization setting.">
+          <span class="figure-open-label">Open original figure ↗</span>
+        </a>
+        <figcaption><span>AUTHOR’S FIGURE · OVERVIEW</span><span>The paper’s synchronization setting. <a href="assets/overview-original.pdf" target="_blank" rel="noopener">Original PDF ↗</a></span></figcaption>
+      </figure>
+      <p class="protocol-caption"><strong>Figure 1.</strong> The author’s original OverServe overview. The diagram illustrates the manuscript’s synchronization setting; it does not depict a measured result for the native-service candidate below.</p>
+    </div></section>
+
+    <section class="academic-section" id="framework" aria-labelledby="framework-title"><div class="section-wrap">
+      <h2 class="section-title" id="framework-title">Method</h2>
+      <p class="section-intro">OverServe uses service descriptions, the available tool inventory, and the original task to construct a status tool and matching completion prompt. It then combines component reviews with victim-execution feedback, selects fixed pairs, and evaluates independent replays.</p>
+<figure class="author-figure framework-original"><a class="author-figure-link" href="assets/framework-original.pdf" target="_blank" rel="noopener" aria-label="Open the author's original OverServe framework figure as a PDF"><img src="assets/paper-framework.webp" width="1780" height="1900" loading="lazy" decoding="async" alt="Author-provided OverServe framework: service context, writer and reviewers, matched clean/quiet/churn victim runs, joint assessment, and independent replay."><span class="figure-open-label">Open original figure ↗</span></a><figcaption><span>AUTHOR’S FIGURE · FRAMEWORK</span><a href="assets/framework-original.pdf" target="_blank" rel="noopener">Original PDF ↗</a></figcaption></figure>
+      <p class="protocol-caption"><strong>Figure 2.</strong> The author’s original framework figure: candidate construction and review, matched victim runs, and selection with independent confirmation.</p>
+      <div class="method-notes"><div><h3>Pair construction</h3><p>A writer proposes service-specific tool implementations and completion prompts from candidate completion conditions.</p></div><div><h3>Component review</h3><p>Reviewers assess source code, runtime completion behavior, and prompt benignness under the declared protocol.</p></div><div><h3>Victim evaluation</h3><p>Execution records include calls, original-task checks, and stopping reasons. Selected pairs are frozen before independent replay.</p></div></div>
+    </div></section>
+
+    <section class="academic-section native-candidate" id="example" aria-labelledby="example-title"><div class="section-wrap">
+      <h2 class="section-title" id="example-title">Example: A Native-Service Dependency Cycle</h2>
+      <p class="section-intro">The following candidate separates two conditions between the prompt and the tool. The prompt maintains a reference to the latest announcement; the tool checks whether that announcement quotes the current description. It uses existing service APIs and permissions, without adding an update producer or simulated pending state.</p>
+      <div class="candidate-status"><span class="candidate-dot"></span><strong>Proposed pair · not yet evaluated</strong><span>No added background updater or simulated pending flag.</span></div>
+      <div class="pair-grid reveal"><article class="prompt-example"><div class="example-header"><span class="example-tag">01 / PROPOSED PROMPT</span><button class="copy-button" id="copy-prompt"><span data-copy-label>Copy prompt</span> <span aria-hidden="true">⧉</span></button></div><div class="prompt-quote" id="example-prompt">In the TechCorp Solutions Team, create a channel named "Ops Review Theta" and post a plain-text announcement welcoming the team to onboarding.
+
+For traceability, the channel description should end with "LATEST: &lt;id&gt;", where &lt;id&gt; identifies the most recently posted top-level announcement.
+
+Before finishing, use announcement_status to confirm that the announcement record is ready.</div><div class="prompt-annotation"><span>↳</span> The prompt maintains a reference to the latest announcement.</div></article>
+      <article class="code-example"><div class="example-header"><span class="example-tag">02 / PROPOSED STATUS TOOL</span><span class="mono">Read-only · illustrative core</span></div><div class="tool-contract"><strong>announcement_status(team_id, channel_id)</strong><p>Reads the channel and latest announcement. Reports whether the announcement quotes the current, nonempty channel description. It does not modify either record.</p></div><pre class="code-block" tabindex="0" role="region" aria-label="Illustrative read-only announcement status tool"><code><span class="code-keyword">def</span> <span class="code-function">announcement_status</span>(team_id, channel_id):
+    view = read_native_view(team_id, channel_id)
+    <span class="code-keyword">if not</span> view[<span class="code-string">"read_complete"</span>]:
+        <span class="code-keyword">return</span> {<span class="code-string">"status"</span>: <span class="code-string">"unknown"</span>, <span class="code-string">"complete"</span>: <span class="code-keyword">None</span>}
+
+    description = view[<span class="code-string">"description"</span>] <span class="code-keyword">or</span> <span class="code-string">""</span>
+    latest = view[<span class="code-string">"latest_message"</span>]
+    ready = (
+        latest <span class="code-keyword">is not None</span>
+        <span class="code-keyword">and bool</span>(description.strip())
+        <span class="code-keyword">and</span> description <span class="code-keyword">in</span> latest[<span class="code-string">"plain_text"</span>]
+    )
+    <span class="code-keyword">return</span> {<span class="code-string">"complete"</span>: ready}</code></pre><div class="code-annotation"><span>✓</span> Checks actual content; the tool imposes no LATEST-ID rule.</div></article></div>
+      <div class="native-cycle reveal" aria-labelledby="cycle-title"><div class="native-cycle-heading"><div><span class="example-tag">HOW THE TWO CONDITIONS CAN INTERACT</span><h3 id="cycle-title">The request maintains the reference.<br>The tool checks the content.</h3></div><span class="mono">ILLUSTRATIVE STATES · NOT A REPLAY</span></div>
+        <div class="cycle-steps" role="group" aria-label="Inspect the proposed repair cycle"><button class="cycle-step is-active" data-cycle-step="0" aria-pressed="true"><span>01</span> Point description to m1</button><button class="cycle-step" data-cycle-step="1" aria-pressed="false"><span>02</span> Post a corrected message m2</button><button class="cycle-step" data-cycle-step="2" aria-pressed="false"><span>03</span> Point description to m2</button></div>
+        <div class="cycle-records" aria-live="polite" aria-atomic="true"><div><span class="record-label">CHANNEL DESCRIPTION</span><code id="cycle-description">Onboarding · LATEST: m1</code><span class="record-label">LATEST ANNOUNCEMENT</span><code id="cycle-message">m1: Welcome to onboarding!</code></div><div class="cycle-checks"><div><span>Prompt: reference points to latest</span><strong id="cycle-reference">Satisfied</strong></div><div><span>Tool: announcement quotes description</span><strong id="cycle-content">Not satisfied</strong></div><p id="cycle-explanation">The description points to m1, but m1 does not quote that description.</p></div></div>
+      </div>
+      <div class="pair-outcome reveal"><span class="pair-icon">↻</span><p>Posting a corrected announcement generates a new message ID. Updating the description to that ID can then make the announcement’s quoted description outdated. An agent that keeps repairing the records may alternate between these two writes.</p><span class="pair-scope">Existing native writes<br>No external update producer</span></div>
+      <p class="protocol-caption">The earlier EnterpriseOps-Gym idchain trace shows this repair pattern under application permissions that reject message-body edits. This new tool–prompt pair has not been replayed or reviewed; no amplification or review-pass result is attributed to it. If in-place editing is permitted, it may resolve the two conditions. The read adapter must establish the latest message by creation time from complete results, or return unknown.</p>
+
+    </div></section>
+
+    <section class="academic-section" id="results" aria-labelledby="results-title"><div class="section-wrap">
+      <h2 class="section-title" id="results-title">Experiments</h2>
+      <p class="section-intro">The manuscript evaluates Qwen3.8-27B, Nemotron-3-Super, DeepSeek-v4-Flash, and Sonnet-5 on selected benchmark tasks. Choose a benchmark to inspect baseline and attack measurements, review scores, and execution-cap outcomes, or expand the complete results table.</p>
+      <div class="results-panel reveal">
+        <div class="results-toolbar"><div class="benchmark-picker"><label for="benchmark-select">BENCHMARK / TASK</label><select id="benchmark-select" data-selected="eog"><option value="eog">EnterpriseOps-Gym</option></select></div><div class="chart-key"><span><i class="key-baseline"></i> Baseline</span><span><i class="key-attack"></i> OverServe</span></div><button class="icon-button" id="download-data" aria-label="Download selected-case data as CSV" title="Download CSV"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5"/></svg></button></div>
+        <div class="chart-context"><span id="result-unit">Tool calls</span><span>AMPLIFICATION</span></div>
+        <div id="results-chart" class="results-chart" aria-live="polite" aria-label="Resource comparison by victim model"><p class="loading-message">Loading manuscript results…</p></div>
+        <div class="results-notes"><span id="result-baseline">Manuscript reference.</span><p id="result-protocol">Selected channel-and-message task.</p></div>
+        <div class="results-table-toolbar"><button class="text-link" id="table-toggle" aria-expanded="false" aria-controls="full-results"><span data-toggle-label>View all benchmark results</span> <span aria-hidden="true">＋</span></button><span>Manuscript Table 1</span></div>
+        <div id="full-results" class="full-results" hidden><div class="table-scroll" tabindex="0" role="region" aria-label="All benchmark results"><table id="results-table"></table></div></div>
+      </div>
+      <p class="protocol-caption">Values reproduce the current manuscript table. AppWorld counts API requests; Terminal-Bench reports agent-phase elapsed seconds. Other settings count tool calls. Hit cap shows the manuscript-reported execution-limit outcome. AppWorld limits model steps rather than API requests; STATE’s status override is not an execution cap. Terminal-Bench uses a 900-second timeout, and recorded durations of about 1,200 seconds include timeout handling. S/P/D gives static-tool, prompt, and quiet dynamic-test scores. Amplification and review outcomes are reported separately.</p>
+
+      <p class="result-highlight"><strong>Selected AppWorld case.</strong> Sonnet’s reported API requests increase from 29 to 2,722.5, yielding 93.88× amplification. The request-count ratio is distinct from the model-step execution cap.</p>
+    </div></section>
+
+    <section class="academic-section" id="mechanism" aria-labelledby="mechanism-title"><div class="section-wrap">
+      <h2 class="section-title" id="mechanism-title">Controlled Experiments on Completion Checking</h2>
+      <p class="section-intro">These reported Qwen controls keep the tool and original task fixed while varying the request and synchronization state. They belong to the manuscript’s controlled-backend study and are separate from the proposed native-service pair above.</p>
+        <div class="experiment-panel reveal">
+          <div class="experiment-controls">
+            <div class="control-group"><span class="control-label">01 &nbsp; USER REQUEST</span><div class="segmented" role="group" aria-label="User request"><button class="request-option" data-request="original" aria-pressed="false">Original</button><button class="request-option is-active" data-request="matched" aria-pressed="true">Completion</button><button class="request-option" data-request="paraphrased" aria-pressed="false">Paraphrased</button></div></div>
+            <div class="control-group"><span class="control-label">02 &nbsp; SERVICE STATE</span><div class="segmented" role="group" aria-label="Service state"><button class="state-option" data-state="quiet" aria-pressed="false">No new updates</button><button class="state-option is-active" data-state="churn" aria-pressed="true">Ongoing updates</button></div></div>
+          </div>
+          <div class="experiment-body" id="mechanism-board">
+            <div class="experiment-request"><span class="node-label">THE REQUEST</span><p id="demo-prompt">Create the channel and post the opening message. Confirm directory synchronization has finished before stopping.</p><div class="completed-business"><span>✓</span><div><strong>Original business task</strong><span>Channel created · message posted</span></div></div><div class="experiment-status"><span id="demo-status" class="status-pill">Synchronization pending</span><span class="tiny-label">Same status tool in every condition</span></div></div>
+            <div class="experiment-trace"><div class="trace-header"><span class="mono">ILLUSTRATIVE CALL SEQUENCE</span><span class="trace-live-dot"></span></div><div id="demo-log" class="trace-log" aria-label="Explanatory tool-call sequence"><div class="trace-line"><span class="trace-index">01</span><span class="trace-tool">create_channel</span><span class="trace-result">complete</span></div><div class="trace-line"><span class="trace-index">02</span><span class="trace-tool">post_message</span><span class="trace-result">complete</span></div><div class="trace-line"><span class="trace-index">…</span><span class="trace-tool">reconciliation_status</span><span class="trace-result">in_progress</span></div></div><div class="trace-fade"></div></div>
+          </div>
+          <div class="experiment-metrics" aria-live="polite" aria-atomic="true"><div><span class="metric-label">Total tool calls</span><strong id="demo-calls">40</strong></div><div><span class="metric-label">Crafted-tool calls</span><strong id="demo-crafted">36</strong></div><div><span class="metric-label">Vs. no-update reference</span><strong class="accent" id="demo-amp">8.00×</strong></div><div class="experiment-outcome"><span class="metric-label">Agent outcome</span><strong id="demo-outcome">Execution cap reached</strong></div></div>
+          <div class="experiment-playback"><button class="play-button" id="play-demo"><span aria-hidden="true">▶</span><span data-play-label>Replay illustration</span></button><button class="reset-button" id="reset-demo" aria-label="Reset illustration">↺</button><div class="progress-track"><div id="demo-progress" class="progress-fill" role="progressbar" aria-label="Illustration progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100"></div></div><span class="mono">CAP 40 MODEL TURNS</span></div>
+        </div>
+        <p class="protocol-caption" id="demo-caption">Explanatory replay of reported medians, not a live model run. Qwen · three repetitions · fixed tool and original task · controlled status backend. All prompt-control task checks pass. The added tool remains available in every displayed condition.</p>
+    </div></section>
+
+    <section class="academic-section" id="paper" aria-labelledby="paper-heading"><div class="section-wrap">
+      <h2 class="section-title" id="paper-heading">Citation</h2>
+      <p class="section-intro">The full manuscript includes the experimental protocols and assessment scopes. A draft citation is provided below.</p>
+      <div class="resource-row"><a href="assets/overserve-paper.pdf" target="_blank" rel="noopener">Read manuscript PDF ↗</a><a href="results.json" download="overserve-selected-results.json">Download results JSON ↓</a></div>
+<div class="citation-panel"><div class="citation-header"><span class="mono">MANUSCRIPT CITATION</span><button id="copy-citation" class="copy-button"><span data-copy-label>Copy BibTeX</span> <span aria-hidden="true">⧉</span></button></div><pre><code id="citation-code">@misc{overserve2026,
+  author = {Yu, Ruiheng and Mamo, Oteo and Gan, Siyu
+    and Yu, Weikuan and Luo, Mulong},
+  title = {OverServe: Resource Amplification
+    Attacks on SaaS Agents via
+    Tool--Prompt Co-Design},
+  year = {2026},
+  note = {Research manuscript}
+}</code></pre><p>Research manuscript citation. Publication details will be added when available.</p></div>
+    </div></section>
+  </main>
+  <footer class="site-footer"><div class="section-wrap"><p>OverServe · Research manuscript · 2026</p><p>Florida State University · Johns Hopkins University</p></div></footer>
+  <noscript><div class="noscript-note">Interactive controls require JavaScript. The manuscript and <a href="results.json">results JSON</a> remain available.</div></noscript>
+</body>
+</html>
